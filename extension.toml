@@ -1,0 +1,7 @@
+id = "zed-paper"
+name = "Zed Paper"
+version = "0.1.0"
+schema_version = 1
+authors = ["Serhii Snozyk"]
+description = "Paper-white and charcoal themes inspired by the mood of zed.dev."
+repository = "https://github.com/nmbrone/zed-paper"

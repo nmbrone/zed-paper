@@ -1,0 +1,22 @@
+name: Validate themes
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - run: python scripts/validate.py
+      - name: Check extension manifest
+        run: |
+          python - <<'PY'
+          import pathlib, tomllib
+          manifest = tomllib.loads(pathlib.Path('extension.toml').read_text())
+          for key in ('id', 'name', 'version', 'schema_version', 'authors', 'description'):
+              assert manifest.get(key), key
+          assert manifest['schema_version'] == 1
+          PY
